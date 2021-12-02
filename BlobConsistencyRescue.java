@@ -54,6 +54,7 @@ import com.zimbra.soap.admin.type.ExportAndDeleteItemSpec;
 import com.zimbra.cs.mailbox.Mailbox;
 import com.zimbra.cs.mailbox.MailboxManager;
 import com.zimbra.cs.mailbox.MailItem;
+import com.zimbra.cs.mailbox.MailServiceException.NoSuchItemException;
 import com.zimbra.cs.mailbox.OperationContext;
 
 public class BlobConsistencyRescue {
@@ -271,13 +272,19 @@ public class BlobConsistencyRescue {
 
 
                 mboxOctxt = new OperationContext(mbox);
-                mailItem = mbox.getItemById(mboxOctxt,blob.itemId,MailItem.Type.UNKNOWN);
-                mailItemDigest = mailItem.getDigest();
+                String foundFilePath = null;
+                try {
+                    mailItem = mbox.getItemById(mboxOctxt,blob.itemId,MailItem.Type.UNKNOWN);
+                    mailItemDigest = mailItem.getDigest();
+                    foundFilePath = lostfoundMap.get(mailItemDigest);
+                }
+                catch (NoSuchItemException e) {
+                    foundFilePath = null;
+                }
 
 
                 System.out.format("Mailbox %d, item %d, rev %d, %s: blob not found.\n",
                     results.mboxId, blob.itemId, blob.modContent, locatorText(blob));
-                String foundFilePath = lostfoundMap.get(mailItemDigest);
                 String suggestedRepairCommandLine;
                 if (foundFilePath == null) {
                     suggestedRepairCommandLine = String.format("echo 'EMAIL_EMPTY_CONTENT' > '%s'", blob.path
