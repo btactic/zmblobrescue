@@ -3,7 +3,7 @@ zmblobrescue
 
 Write suggested commands to rescue mail items or blobs from a lost+found directory.
 
-Designed for Zimbra version 8.6.
+Designed for Zimbra version 8.8.X.
 
 Bugs and feedback: [https://github.com/btactic/zmblobrescue/issues](https://github.com/btactic/zmblobrescue/issues)
 
@@ -32,9 +32,9 @@ Note that emails or blobs that do not have a matching lost-and-found file will b
 sudo su - zimbra
 mkdir -p /opt/zimbra/conf/scripts
 cd /opt/zimbra/conf/scripts
-wget "https://github.com/btactic/zmblobrescue/archive/v1.0.tar.gz" -O /tmp/zmblobrescue-v1.0.tar.gz
-tar xzf /tmp/zmblobrescue-v1.0.tar.gz
-cd zmblobrescue-1.0
+wget "https://github.com/btactic/zmblobrescue/archive/v1.1.tar.gz" -O /tmp/zmblobrescue-v1.1.tar.gz
+tar xzf /tmp/zmblobrescue-v1.1.tar.gz
+cd zmblobrescue-1.1
 ./build.sh
 ```
 
@@ -64,7 +64,7 @@ Id values are separated by commas.
 ```
 # Login as zimbra
 sudo su - zimbra
-cd /opt/zimbra/conf/scripts/zmblobrescue-1.0
+cd /opt/zimbra/conf/scripts/zmblobrescue-1.1
 ./zmblobrescue.sh \
     --mailboxes 200 \
     --volumes 3 \
@@ -97,7 +97,7 @@ zmblobrescue
 
 Copyright (C) 2009, 2010, 2012, 2013, 2014 Zimbra, Inc.
 
-Copyright (C) 2019 [BTACTIC](http://www.btactic.com/),SCCL
+Copyright (C) 2019, 2020, 2021, 2022 [BTACTIC](http://www.btactic.com/),SCCL
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software Foundation,
